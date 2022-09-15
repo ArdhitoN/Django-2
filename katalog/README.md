@@ -80,10 +80,5 @@ Untuk melakukan deployment, kita dapat merujuk ke tutorial di dalam [Lab0](https
 HEROKU_API_KEY: VALUE_API_KEY
 HEROKU_APP_NAME: NAMA_APLIKASI_HEROKU
 ```
-Kemudian, kita dapat melakukan push terhadap file-file yang telah kita ubah di dalam project/aplikasi Django yang kita buat dan mendeploynya ke repository GitHub.
-
-<<<<<<< HEAD
+Kemudian, kita dapat melakukan push terhadap file-file yang telah kita ubah di dalam project/aplikasi Django yang kita buat dan mendeploynya ke repository GitHub. 
 Setelahnya, aplikasi Django akan dapat diakses secara global menggunakan internet.
-=======
-Setelahnya, aplikasi Django akan dapat diakses secara global menggunakan internet.
->>>>>>> edecd176b00166506f5d443558388aa8c6bc13a0

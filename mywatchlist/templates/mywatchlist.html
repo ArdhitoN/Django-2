@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+ {% block content %}
+
+
+  <h2>Assignment-3 PBP</h2>
+
+  <h5>Name: </h5>
+  <p>{{name}}</p>
+
+  <h5>Student ID: </h5>
+  <p>{{NPM}}</p>
+
+  <h1>My Watchlist</h1>
+
+  <table>
+    <tr>
+      <th>Watched</th>
+      <th>Title</th>
+      <th>Rating</th>
+      <th>Release Date</th>
+      <th>Review</th>
+    </tr>
+
+    {% comment %} Adding data will be processed below this line {% endcomment %}
+    {% for watchlist in watchlist_list %}
+      <tr>
+        <th>{{watchlist.is_watched}}</th>
+        <th>{{watchlist.title}}</th>
+        <th>{{watchlist.rating}}</th>
+        <th>{{watchlist.release_date}}</th>
+        <th>{{watchlist.review}}</th>
+      </tr>
+    {% endfor %}  
+  </table>
+
+ {% endblock content %}

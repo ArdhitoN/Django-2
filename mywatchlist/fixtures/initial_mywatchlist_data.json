@@ -1,0 +1,121 @@
+[
+    {
+        "model" : "mywatchlist.mywatchlist",
+        "pk" : 1,
+        "fields" :{
+            "title" : "A",
+            "rating": 5,
+            "release_date": "1921-02-11",
+            "review" : "GG",
+            "is_watched": true
+        }
+    },
+
+    {
+        "model" : "mywatchlist.mywatchlist",
+        "pk" : 2,
+        "fields":{
+            "title" : "B",
+            "rating": 5,
+            "release_date": "1921-02-11",
+            "review" : "GG",
+            "is_watched": true
+        }
+    },
+
+    {
+        "model" : "mywatchlist.mywatchlist",
+        "pk" : 3,
+        "fields":{
+            "title" : "C",
+            "rating": 1,
+            "release_date": "1921-02-11",
+            "review" : "GG",
+            "is_watched": false
+        }
+    },
+
+    {
+        "model" : "mywatchlist.mywatchlist",
+        "pk" : 4,
+        "fields":{
+            "title" : "D",
+            "rating": 4,
+            "release_date": "1921-02-11",
+            "review" : "GG",
+            "is_watched": true
+        }
+    },
+
+    {
+        "model" : "mywatchlist.mywatchlist",
+        "pk" : 5,
+        "fields":{
+            "title" : "E",
+            "rating": 1,
+            "release_date": "1921-02-11",
+            "review" : "GG",
+            "is_watched": true
+        }
+    },
+
+    {
+        "model" : "mywatchlist.mywatchlist",
+        "pk" : 6,
+        "fields":{
+            "title" : "F",
+            "rating": 1.5,
+            "release_date": "1921-02-11",
+            "review" : "GG",
+            "is_watched": true
+        }
+    },
+
+    {
+        "model" : "mywatchlist.mywatchlist",
+        "pk" : 7,
+        "fields":{
+            "title" : "G",
+            "rating": 1.5,
+            "release_date": "1921-02-11",
+            "review" : "GG",
+            "is_watched": true
+        }
+    },
+
+    {
+        "model" : "mywatchlist.mywatchlist",
+        "pk" : 8,
+        "fields":{
+            "title" : "H",
+            "rating": 1.5,
+            "release_date": "1921-02-11",
+            "review" : "GG",
+            "is_watched": false
+        }
+    },
+
+    {
+        "model" : "mywatchlist.mywatchlist",
+        "pk" : 9,
+        "fields":{
+            "title" : "I",
+            "rating": 2.5,
+            "release_date": "1921-02-11",
+            "review" : "GG",
+            "is_watched": true
+        }
+    },
+
+    {
+        "model" : "mywatchlist.mywatchlist",
+        "pk" : 10,
+        "fields":{
+            "title" : "J",
+            "rating": 4.99,
+            "release_date": "1921-02-11",
+            "review" : "GG",
+            "is_watched": false
+        }
+    }
+]

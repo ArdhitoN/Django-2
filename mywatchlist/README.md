@@ -2,17 +2,10 @@
 Tampilan antarmuka mywatchlist dapat dilihat melalui tautan berikut : 
 https://cata-log.herokuapp.com/mywatchlist/html/
 
-Data aplikasi mywatchlist dalam format xml dan json dapat dilihat melalui tautan berikut:
-
+Data aplikasi mywatchlist dalam format xml dan json dapat dilihat melalui tautan di bawah ini. Untuk dapat melihat data berdasarkan id yang dimilikinya, masukkan nomor id dari data-object (1-10) di paling belakang dari url.
 https://cata-log.herokuapp.com/mywatchlist/xml/
 
 https://cata-log.herokuapp.com/mywatchlist/json/
-
-Untuk dapat melihat data sesuai dengan id yang dimilikinya, masukkan nomor id di belakang url(1-10) sebagai berikut (tanpa tanda <>):
-
-https://cata-log.herokuapp.com/mywatchlist/xml/<nomor-id>
-
-https://cata-log.herokuapp.com/mywatchlist/json/<nomor-id>
 
 ## Apa itu HTML, XML, JSON? Dan Apa Perbedaan Antara Ketiganya?
 
@@ -206,8 +199,17 @@ urlpatterns = [
 ```
 
 ### Hasil akses URL menggunakan Postman
+HTML:
+<br>
+![HTML](https://github.com/ArdhitoN/Django-2/blob/main/mywatchlist/HtmlAccessResult.png?raw=true) <br>
 
-
+XML:
+<br>
+![XML](https://github.com/ArdhitoN/Django-2/blob/main/mywatchlist/XMLAccessResult.png?raw=true) <br>
+    
+JSON:
+<br>
+![JSON](https://github.com/ArdhitoN/Django-2/blob/main/mywatchlist/JsonAccessResult.png?raw=true) <br>
 
 
 ### Pembuatan Test

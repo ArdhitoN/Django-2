@@ -9,3 +9,6 @@ class MyWatchList(models.Model):
     is_watched = models.BooleanField()
 
 
+
+
+    

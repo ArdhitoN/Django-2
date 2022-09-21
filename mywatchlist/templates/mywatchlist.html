@@ -15,23 +15,33 @@
 
   <table>
     <tr>
-      <th>Watched</th>
       <th>Title</th>
-      <th>Rating</th>
       <th>Release Date</th>
+      <th>Current Rating</th>
       <th>Review</th>
+      <th>Watched</th>
     </tr>
 
     {% comment %} Adding data will be processed below this line {% endcomment %}
+    <!-- {% with is_watched_counter=0 %}
+    {% endwith %} -->
     {% for watchlist in watchlist_list %}
       <tr>
-        <th>{{watchlist.is_watched}}</th>
         <th>{{watchlist.title}}</th>
-        <th>{{watchlist.rating}}</th>
         <th>{{watchlist.release_date}}</th>
+        <th>{{watchlist.rating}}</th>
         <th>{{watchlist.review}}</th>
+        <th>{{watchlist.is_watched}}</th>
+        {% if watchlist.is_watched %}
+        {% endif %}
+
       </tr>
     {% endfor %}  
   </table>
-
+  <!-- {% if film_watched_counter > 5 %}
+    <h3>Selamat, kamu sudah banyak menonton!</h3>
+  {% else %}
+    <h3>Wah, kamu masih sedikit menonton!</h3>
+  {% endif %}
+   -->
  {% endblock content %}

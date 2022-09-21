@@ -213,7 +213,7 @@ JSON:
 
 
 ### Pembuatan Test
-Untuk membuat test yang akan mengecek respons dari URL, kita dapat memanfaatkan class TestCase dan class Client. Pertama-tama, kita dapat membuat sebuah class bernama MyWatchlistTestCase yang mengextend class TestCase. Setelahnya, kita dapat mendefinisikan fungsi test untuk masing-masing URL yang sudah didefinisikan sebelumnya. Di dalam fungsi tersebut, kita dapat membuat suatu object Client, dan menggunakan method get dengan argumen path URL yang ingin ditest. Hasil dari response tersebut akan dibandingkan dengan value 200 yang berarti request telah sukses dan responsenya sudah OK.
+Untuk membuat test yang akan mengecek respons dari URL, kita dapat memanfaatkan class TestCase dan class Client. Pertama-tama, kita dapat membuat sebuah class bernama MyWatchlistTestCase yang mengextend class TestCase. Setelahnya, kita dapat mendefinisikan fungsi test untuk masing-masing URL yang sudah didefinisikan sebelumnya. Di dalam fungsi tersebut, kita dapat membuat suatu object Client, kemudian menggunakan method get dengan argumen path URL yang ingin ditest. Hasil dari response tersebut akan dibandingkan dengan value 200. Jika sama, artinya request telah sukses dan responsenya sudah OK.
 
 Berikut merupakan code untuk tests.py yang diperuntukkan untuk aplikasi mywatchlist:
 

@@ -23,8 +23,7 @@
     </tr>
 
     {% comment %} Adding data will be processed below this line {% endcomment %}
-    <!-- {% with is_watched_counter=0 %}
-    {% endwith %} -->
+
     {% for watchlist in watchlist_list %}
       <tr>
         <th>{{watchlist.title}}</th>
@@ -38,10 +37,33 @@
       </tr>
     {% endfor %}  
   </table>
-  <!-- {% if film_watched_counter > 5 %}
+
+  <!-- <script>
+    function isBanyakMenonton(){
+      let is_watched_counter = 0;
+      var wtclist_list = JSON.parse('{{watchlist_list|escapejs}}');
+      for(watchlist : wtclist_list){
+          if(watchlist.is_watched === true){
+            is_watched_counter++;
+          }
+      }
+
+
+      if(is_watched_counter > 5){
+      document.getElementById("isBanyakMenonton").innerHTML = "Selamat, kamu sudah banyak menonton!";
+      }else{
+        document.getElementById("isBanyakMenonton").innerHTML = "Wah, kamu masih sedikit menonton!";
+      }
+    }
+  </script>
+
+  <h3 id="isBanyakMenonton"> </h3> -->
+
+
+  {% if film_watched_amount > 5 %}
     <h3>Selamat, kamu sudah banyak menonton!</h3>
   {% else %}
     <h3>Wah, kamu masih sedikit menonton!</h3>
   {% endif %}
-   -->
+  
  {% endblock content %}

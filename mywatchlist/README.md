@@ -151,17 +151,20 @@ Setelahnya, kita dapat memasukkan data yang telah dibuat di dalam file initial_m
 
 ### Mengimplementasikan sebuah fitur untuk menyajikan data dalam format HTML, XML, dan JSON
 
-Untuk dapat menyajikan data dalam bentuk HTML, dibentuk sebuah fungsi yang menerima argumen request dari client. Fungsi tersebut akan mengembalikan hasil dari rendering data ke template html. Berikut ialah kode untuk fungsi tersebut:
+Untuk dapat menyajikan data dalam bentuk HTML, dibentuk sebuah fungsi yang menerima argumen request dari client. Fungsi tersebut akan mengembalikan hasil dari rendering data ke template html. Selain itu, kita dapat menghitung berapa banyak film yang telah ditonton dengan memfilter object yang memiliki atribut is_watched bernilai true. Hasil dari pemrosesan tersebut dapat dipakai untuk menampilkan tulisan yang menunjukkan apakah user telah banyak atau masih sedikit menonton. Berikut ialah kode untuk fungsi tersebut:
 ```
 def show_html(request):
     watchlist_objects = MyWatchList.objects.all()
+    film_watched_counter = len(MyWatchList.objects.filter(is_watched=True))
     context  = {
         'watchlist_list': watchlist_objects,
         'name' : "Ardhito Nurhadyansah",
         'NPM' : "2106750206",
+        'film_watched_amount': film_watched_counter,
     }
     return render(request, "mywatchlist.html", context)
 ``` 
+Di dalam file mywatchlist.html, kita dapat memanfaatkan keys yang terdapat pada context untuk menstrukturisasi tampilan web yang akan dikembalikan. 
 
 Sementara itu, untuk mengembalikan data dalam bentuk XML, kita dapat membuat sebuah fungsi yang menerima argumen request dari client dan mengembalikan hasil dari fungsi HttpResponse. Argumen di dalam fungsi HttpResponse berupa data yang diserialisasikan ke dalam format xml dengan fungsi serialize dari modul serializers. Argumen pertama dalam fungsi serialize ialah format hasil serialisasi yang diinginkan, sedangkan  argumen kedua berisi data yang ingin diserialisasikan. 
 

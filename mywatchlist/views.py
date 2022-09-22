@@ -8,6 +8,7 @@ from django.core import serializers
 
 def show_home(request):
     return render(request, "mywatchlist_home.html")
+    
 def show_html(request):
     watchlist_objects = MyWatchList.objects.all()
     film_watched_counter = len(MyWatchList.objects.filter(is_watched=True))

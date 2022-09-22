@@ -1,8 +1,15 @@
 # Assignment-3 : Data Delivery
-Tampilan antarmuka mywatchlist dapat dilihat melalui tautan berikut : 
-https://cata-log.herokuapp.com/mywatchlist/html/
+
+
+
+Tampilan mywatchlist dalam format html dapat dilihat melalui tautan berikut : 
+
+Home : https://cata-log.herokuapp.com/mywatchlist/
+
+Watchlist : https://cata-log.herokuapp.com/mywatchlist/html/
 
 Data aplikasi mywatchlist dalam format xml dan json dapat dilihat melalui tautan di bawah ini. Untuk dapat melihat data berdasarkan id yang dimilikinya, masukkan nomor id dari data-object (1-10) di paling belakang dari url.
+
 https://cata-log.herokuapp.com/mywatchlist/xml/
 
 https://cata-log.herokuapp.com/mywatchlist/json/

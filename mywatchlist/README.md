@@ -14,26 +14,20 @@ https://cata-log.herokuapp.com/mywatchlist/xml/
 
 https://cata-log.herokuapp.com/mywatchlist/json/
 
-## Apa itu HTML, XML, JSON? Dan Apa Perbedaan Antara Ketiganya?
+## Perbedaan HTML, XML, dan JSON
+- Fungsi HTML berfokus untuk **menstrukturisasi** dan **menampilkan** data pada halaman web, sedangkan XML dan JSON lebih berfokus untuk **mendeskripsikan** data.
 
-### HTML
-HTML (Hypertext Markup Language) merupakan suatu bahasa yang dirancang untuk menstrukturisasi halaman web.
+- Data/elemen dalam JSON diformat dalam bentuk **object** sebagaimana dalam JavaScript, dimana data-object "dibungkus" dalam sebuah tanda kurung kurawal ({ }), dan atribut dari data-object tersebut akan ditulis dengan format key: value. Value dari atribut tertentu dapat diperoleh melalui key yang sesuai.   Di sisi lain, data/elemen pada HTML dan XML "dibungkus" di dalam suatu **tag**.  
 
+- Tags untuk XML element (kecuali prolog yang merupakan elemen yang eksistensinya bersifat opsional) selalu terdiri atas opening tag dan closing tag. Sementara itu, pada tags pada elemen HTML tidak selalu terdiri atas kedua entitas tersebut (terdapat self-closing tag).
 
-### XML
-XML(eXtensible Markup Language) merupakan bahasa yang digunakan untuk menyimpan data. Di dalam XML, setiap elemen akan memiliki opening tag dan closing tag, terkecuali untuk prolog XML yang digunakan untuk mendefinisikan tipe encoding dan versi dari XML. Meskipun begitu, eksistensi dari prolog XML bersifat opsional. 
-
-### JSON
-Sama seperti XML, JSON (JavaScript Object Notation) merupakan suatu bahasa yang digunakan untuk menyimpan data yang berisi objects. Cara pendefinisian object dalam JSON sama dengan pendefinisian object di JavaScript, dimana object "dibungkus" dalam sebuah tanda kurung kurawal ({ }), dimana atribut dari object tersebut akan ditulis dengan format key: value. Value dari atribut tertentu dapat diperoleh melalui key yang sesuai.  
-
-### Perbedaan HTML, XML, dan JSON
-- Fungsi HTML berfokus untuk **menampilkan** data pada halaman web, sedangkan XML dan JSON lebih berfokus untuk **mendeskripsikan** data
-
-- Data/elemen dalam JSON diformat dalam bentuk **object** sebagaimana dalam JavaScript. Di sisi lain, data/elemen pada HTML dan XML "dibungkus" di dalam **tag**.  
-
-- Tags untuk XML element (kecuali prolog) selalu terdiri atas opening tag dan closing tag. Sementara itu, pada tags pada elemen HTML tidak selalu terdiri atas kedua entitas tersebut (terdapat self-closing tag).
+- Tag pada XML dikustomisasi secara pribadi dan tidak ada predefined tags. Di sisi lain, pada HTML terdapat predefined tags.
 
 - Karena format data di dalam JSON relatif lebih simple dan padat dibandingkan dengan format pada XML, file-size yang dihasilkan JSON akan relatif lebih kecil dibandingkan file-size XML. Oleh karenanya, data delivery dengan JSON relatif lebih cepat dibandingkan dengan data delivery menggunakan XML.
+
+- HTML dan XML mensupport adanya fitur comment, dimana JSON tidak mensupport adanya fitur tersebut.
+
+- XML mensupport fitur namespace, sedangkan JSON tidak.
 
 
 ## Mengapa Kita Memerlukan Data Delivery Dalam Sebuah Platform?
@@ -44,13 +38,13 @@ Untuk mendukung performa dari sistem di dalam platform, dibutuhkan *data deliver
 ## Langkah Implementasi Pembuatan Aplikasi
 
 ### Inisialisasi 
-Sebelumnya, kita perlu masuk ke dalam directory dimana root project berada. Setelahnya, kita dapat menyalakan virtual environment untuk mengisolasikan kegiatan yang akan kita lakukan. Setelahnya, kita dapat mengirim perintah berikut untuk menginisialisasikan aplikasi baru:
+Note : Sebelumnya, beberapa langkah untuk inisialisasi aplikasi sudah terlalui, sehingga langkah yang tercantum disini secara khusus diperuntukkan untuk aplikasi mywatchlist. 
+
+Pertama-tama, kita perlu masuk ke dalam directory dimana root project berada. Setelahnya, kita dapat menyalakan virtual environment untuk mengisolasikan kegiatan yang akan kita lakukan. Setelahnya, kita dapat mengirim perintah berikut untuk menginisialisasikan aplikasi baru:
 
 ```python manage.py startapp mywatchlist```
 
-Note : Sebelumnya, beberapa langkah untuk inisialisasi aplikasi sudah terlalui, sehingga langkah yang tercantum disini secara khusus diperuntukkan untuk aplikasi mywatchlist. 
-
-### Menambahkan Path mywatchlist Sehingga Pengguna Dapat Mengakses http://localhost:8000/mywatchlist
+### Menambahkan Path mywatchlist Sehingga Kita Dapat Mengakses http://localhost:8000/mywatchlist
 
 Masukkan path('mywatchlist/', include('mywatchlist.urls')) sebagai salah satu elemen di dalam variabel urlpatterns yang ada di dalam file urls.py (di folder root project) sebagai berikut:
 
@@ -63,20 +57,37 @@ urlpatterns = [
 ]
 ```
 
-### Membuat Model Untuk Data di Dalam Aplikasi
-Di dalam file models.py yang terdapat di folder mywatchlist, kita akan membuat sebuah class yang akan menjadi blueprint dari object-object data dengan langkah sebagai berikut:
+Setelahnya, kita perlu membuat suatu file html yang berisi menu bagi user untuk dapat pergi ke halaman yang menampilkan data dalam format HTML, XML, dan JSON dengan path sebagai berikut : folder mywatchlist > folder fixtures > file html (misalnya mywatchlist_home.html).
 
-#### Mengimpor modul models yang akan dipergunakan untuk membuat model dan mendefinisikan atribut dari object, serta class MaxValueValidator dan MinValueValidator yang akan dipergunakan untuk mendefinisikan batasan value yang valid dari nilai rating dengan perintah:
+Selanjutnya, kita perlu mendefinisikan suatu fungsi di dalam views.py yang ada di folder aplikasi mywatchlist yang menerima request dari client dan mengembalikan response berupa halaman web dengan kode berikut:
+
+```
+def show_home(request):
+    return render(request, "mywatchlist_home.html")
+```
+
+Kemudian, di dalam urls.py yang terdapat di folder aplikasi mywatchlist, impor fungsi di atas dan masukkan suatu entitas baru berdasarkan fungsi tadi dan url yang ingin dibuat di dalam urlpatterns, dengan memanfaatkan fungsi path sebagai berikut:  
+
+```
+from .views import show_home
+urlpatterns = [
+    path('', show_home, name= 'show_home'),
+]
+```
+### Membuat Model Untuk Data di Dalam Aplikasi
+Di dalam file models.py yang terdapat di folder mywatchlist, kita akan membuat sebuah class yang akan menjadi blueprint dari object-object data. Berikut merupakan langkah implementasi untuk pembuatan model:
+
+Mengimpor modul models yang akan dipergunakan untuk membuat model dan mendefinisikan atribut dari object, serta class MaxValueValidator dan MinValueValidator yang akan dipergunakan untuk mendefinisikan batasan value yang valid dari nilai rating, melalui perintah:
+
 ```
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 ```
 
-
 Membuat sebuah class bernama MyWatchList yang akan mengextend class Model, dengan atribut: 
 
 - title (tipe datafield berupa karakter dengan tambahan argumen max_length untuk mendefinisikan panjang maksimum dari field)
-- rating (tipe datafield berupa bilangan desimal dengan tambahan argumen max_digits = 3 untuk memberikan batasan agar maksimum digit yang dapat diinput ialah sebanyak 3. Selain itu, terdapat argumen decimal_places=2 yang berarti digit yang akan diperuntukan untuk bilangan di belakang koma ialah sebanyak 2 digit. Dan yang terkahir, terdapat tambahan argumen validators=[MinValueValidator(1) ,MaxValueValidator(5)] untuk mengatur nilai minimum (1) dan nilai maksimum dari rating (5).) 
+- rating (tipe datafield berupa bilangan desimal dengan tambahan argumen max_digits = 3 untuk memberikan batasan agar maksimum digit yang dapat diinput ialah sebanyak 3. Selain itu, terdapat argumen decimal_places=2 yang berarti digit yang akan diperuntukan untuk bilangan di belakang koma ialah sebanyak 2 digit. Dan yang terkahir, terdapat tambahan argumen validators=[MinValueValidator(1) ,MaxValueValidator(5)] untuk mengatur nilai minimum (1) dan nilai maksimum dari rating (5). 
 - release_date (tipe datafield berupa tanggal)  
 - review (tipe datafield berupa text)
 - is_watched (tipe datafield berupa boolean)
@@ -98,7 +109,7 @@ Setelahnya, kita dapat mulai membuat object berdasarkan model yang telah dibuat 
 
 - inisiasikan sebuah tanda kurung kotak ([ ]) yang akan menjadi penampung dari setiap data-object yang akan dibuat berdasarkan model.
 - Setiap data-object "dibungkus" dalam sebuah tanda kurung kurawal ({ }), dimana di dalamnya terdapat pasangan key-values yang akan mendefinisikan atribut dari data-object. 
-- Berdasarkan konvensi pendefinisian data berdasarkan models dari Django, setiap data memiliki 3 key, yaitu "models" dengan value "{nama_folder_aplikasi}.{nama_class_model}" (tanpa tanda { }), "pk" dengan value angka tertentu dari 1 hingga seterusnya (sebagai id), dan "fields" dengan value pendefinisian atribut-atribut dari object-model. 
+- Berdasarkan konvensi pendefinisian data berdasarkan models dari Django, setiap data-object memiliki 3 key, yaitu "models" dengan value "{nama_folder_aplikasi}.{nama_class_model}" (tanpa tanda { }), "pk" dengan value angka tertentu dari 1 hingga seterusnya (sebagai id), dan "fields" dengan value pendefinisian atribut-atribut dari object-model. 
 - Antara satu object dengan object lain dipisahkan dengan tanda koma (,)
 - Salah satu contoh pengaplikasiannya ialah sebagai berikut (untuk 2 object) :
 
@@ -139,6 +150,7 @@ Setelah itu, kita dapat memigrasikan schema model yang telah dibuat ke database 
 Setelahnya, kita dapat memasukkan data yang telah dibuat di dalam file initial_mywatchlist_data.json dengan perintah `python manage.py loaddata initial_mywatchlist_data.json`.
 
 ### Mengimplementasikan sebuah fitur untuk menyajikan data dalam format HTML, XML, dan JSON
+
 Untuk dapat menyajikan data dalam bentuk HTML, dibentuk sebuah fungsi yang menerima argumen request dari client. Fungsi tersebut akan mengembalikan hasil dari rendering data ke template html. Berikut ialah kode untuk fungsi tersebut:
 ```
 def show_html(request):
@@ -184,7 +196,7 @@ def show_json_by_id(request, id):
 ```
 
 ### Membuat routing untuk melihat data yang telah disajikan 
-Untuk melakukan routing agar data yang telah disajikan dapat dilihat menggunakan browser, kita dapat mengimpor fungsi path dan fungsi-fungsi yang telah kita buat sebelumnya di views.py ke urls.py yang terdapat di folder aplikasi mywatchlist. Setelahnya, kita dapat menambahkan path baru sebagai elemen di urlpatterns dengan memanfaatkan fungsi path. Argumen pertama berisi routing untuk alamat dari response, sedangkan argumen kedua diperuntukkan untuk nama fungsi dari views.py yang akan dijalankan. 
+Untuk melakukan routing agar data yang telah disajikan dapat dilihat menggunakan browser, kita dapat mengimpor fungsi path dan fungsi-fungsi yang telah kita buat sebelumnya di views.py ke urls.py yang terdapat di folder aplikasi mywatchlist. Setelahnya, kita dapat menambahkan path baru sebagai elemen di urlpatterns. Argumen pertama berisi routing untuk alamat dari response, sedangkan argumen kedua diperuntukkan untuk nama fungsi dari views.py yang akan dijalankan. 
 ```
 from django.urls import path
 from .views import show_html
@@ -204,6 +216,14 @@ urlpatterns = [
     path('xml/<int:id>', show_xml_by_id, name='show_xml_by_id'),
 ]
 ```
+
+### Proses Deployment
+Untuk mendeploy, kita dapat menambahkan kode berikut ke dalam Procfile yang terdapat di root folder agar migrasi model dapat dilakukan dan data dapat diload di aplikasi yang akan dideploy di Heroku. 
+```
+release: sh -c 'python manage.py migrate && python manage.py loaddata initial_mywatchlist_data.json'
+```
+
+Selanjutnya, kita dapat melakukan 3 mantra git yaitu git add . untuk menambahkan file baru atau yang telah diubah ke staging area, git commit untuk membuat suatu snapshot terhadap perubahan, dan git push untuk memproses deployment.
 
 ### Hasil akses URL menggunakan Postman
 HTML:

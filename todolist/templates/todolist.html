@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+ {% block content %}
+
+  <h1>Your To-Do List</h1>
+
+  <table>
+    <tr>
+      <th>Tanggal Pembuatan Task</th>
+      <th>Judul Task</th>
+      <th>Deskripsi</th>
+    </tr>
+
+    {% for todo in todolist_list %}
+    <tr>
+      <th>{{todo.date}}</th>
+      <th>{{todo.title}}</th>
+      <th>{{todo.description}}</th>
+    </tr>
+    {% endfor %}
+
+    {% comment %} Adding data will be processed below this line {% endcomment %}
+  </table>
+
+  <br>
+  <br>
+
+  <button class="btn btn-addtask"><a href="{% url 'todolist:create_task' %}">Tambah Task Baru</a></button>
+
+  <button class="btn btn-logout"><a href="{% url 'todolist:logout' %}">Logout</a></button>
+
+  <h5>Sesi terakhir login: {{ last_login }}</h5>
+
+  {% endblock content %}

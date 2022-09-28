@@ -1,3 +1,6 @@
+Tautan aplikasi : https://cata-log.herokuapp.com/todolist/
+
+
 ## Kegunaan {% csrf_token %} Pada Elemen <form>
 
 Tujuan utama penggunaan {% csrf_token %} ialah untuk mencegah dan memproteksi project dari serangan Cross Site Request Forgery (CSRF). Serangan dilakukan dengan memanfaatkan kredensial dari dari user yang telah terautentikasi dengan mengubah request dari yang mereka lakukan sehingga pada akhirnya korban melakukan hal yang tidak mereka inginkan. Misalnya, korban dapat masuk ke suatu link tanpa keinginannya sendiri ketika melakukan suatu hal di halaman web. Elemen `{% csrf_token %}` akan membuat sebuah token di server ketika proses rendering halaman web dilakukan. Token tersebut berupa kode alfanumerik atau nilai rahasia yang bersifat acak dan bersifat khusus untuk suatu situs tertentu. Setiap request yang masuk akan dicek melalui token tersebut. Oleh karena itu juga, aktivitas POST melalui form hanya akan dapat berjalan jika domain dimana ia berasal dapat dipercaya. 

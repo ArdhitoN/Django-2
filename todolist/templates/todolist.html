@@ -9,6 +9,8 @@
       <th>Tanggal Pembuatan Task</th>
       <th>Judul Task</th>
       <th>Deskripsi</th>
+      <!-- <th>Status</th>
+      <th><button>Hapus</button></th> -->
     </tr>
 
     {% for todo in todolist_list %}
@@ -29,6 +31,6 @@
 
   <button class="btn btn-logout"><a href="{% url 'todolist:logout' %}">Logout</a></button>
 
-  <h5>Sesi terakhir login: {{ last_login }}</h5>
+  <!-- <h5>Sesi terakhir login: {{ last_login }}</h5> -->
 
   {% endblock content %}

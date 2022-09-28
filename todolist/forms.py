@@ -17,15 +17,15 @@ class Input_Form(forms.ModelForm):
 
         input_attrs = {
             'type' : 'text',
-            'placeholder' : 'Nama Task',
+            'placeholder' : 'Nama task',
         }
 
         input_attrs2 = {
             'type' : 'text',
-            'placeholder' : 'Nama Task',
+            'placeholder' : 'Deskripsi task',
         }
 
         widgets = {
-            'title' : forms.TextInput(),
-            'description' : forms.TextInput(),
+            'title' : forms.TextInput(attrs=input_attrs),
+            'description' : forms.TextInput(attrs=input_attrs2),
         }

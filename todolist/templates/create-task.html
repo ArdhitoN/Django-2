@@ -14,9 +14,9 @@
         {% csrf_token %}
         {{input_form.as_p}}
         <input type="submit" value="add">
-        <button><a href="{% url 'todolist:show_todolist' %}">home</a></button>
     </form>
 
+    <button><a href="{% url 'todolist:show_todolist' %}">home</a></button>
 </div>  
 
 {% endblock content %}

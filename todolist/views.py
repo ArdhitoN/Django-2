@@ -80,19 +80,17 @@ def create_task(request):
     return render(request, 'create-task.html', response)
 
 def delete_task(request, id):
-    task_objects = Task.objects.filter(pk=id)
+    task_objects = Task.objects.get(pk=id)
     task_objects.delete()
-    user = request.user
 
-    HttpResponseRedirect(reverse("todolist:show_todolist"))
+    return HttpResponseRedirect(reverse("todolist:show_todolist"))
 
-def set_is_finished(request):
-    task_objects = Task.objects.filter(pk=id)
-    if(task_objects.is_finished):
-        task_objects.is_finished = False
+def set_status(request, id):
+    task_object = Task.objects.get(pk=id)
+    if(task_object.is_finished):
+        task_object.is_finished = False
     else:
-        task_objects.is_finished = True
-    task_objects.save()
-    user = request.user
-    HttpResponseRedirect(reverse("todolist:show_todolist"))
+        task_object.is_finished = True
+    task_object.save()
+    return HttpResponseRedirect(reverse("todolist:show_todolist"))
    

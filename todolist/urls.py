@@ -5,7 +5,7 @@ from .views import login_user
 from .views import logout_user
 from .views import show_todolist
 from .views import create_task
-from .views import set_is_finished
+from .views import set_status
 from .views import delete_task
 
 
@@ -17,6 +17,6 @@ urlpatterns = [
     path('login/', login_user, name='login'),
     path('logout/', logout_user, name='logout'),
     path('create-task/', create_task, name='create_task'),
-    path('set_is_finished/<int:id>', set_is_finished, name='set_is_finished'),
+    path('set-status/<int:id>', set_status, name='set_status'),
     path('delete-task/<int:id>', delete_task, name='delete_task'),
 ]

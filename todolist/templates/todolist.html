@@ -1,7 +1,19 @@
+<style>
+  body{
+    background-color:lightgrey;
+  }
+
+  th{
+    padding: 20px;
+  }
+</style>
+
 {% extends 'base.html' %}
 
  {% block content %}
 
+  <body>
+    
   <h1>Your To-Do List</h1>
 
   <table>
@@ -9,8 +21,9 @@
       <th>Tanggal Pembuatan Task</th>
       <th>Judul Task</th>
       <th>Deskripsi</th>
-      <!-- <th>Status</th>
-      <th><button>Hapus</button></th> -->
+      <th>Status</th>
+      <th>Ubah status</th>
+      <th>Hapus</th>
     </tr>
 
     {% for todo in todolist_list %}
@@ -18,10 +31,17 @@
       <th>{{todo.date}}</th>
       <th>{{todo.title}}</th>
       <th>{{todo.description}}</th>
+      <th>
+        {% if todo.is_finished %}
+        Selesai
+        {% else %}
+        Belum selesai
+        {% endif %}
+      </th>
+      <th><button><a href="{% url 'todolist:set_status' todo.id %}">Ubah</a></button></th>
+      <th><button><a href="{% url 'todolist:delete_task' todo.id %}">Hapus to-do</a></button></th>
     </tr>
     {% endfor %}
-
-    {% comment %} Adding data will be processed below this line {% endcomment %}
   </table>
 
   <br>
@@ -32,5 +52,5 @@
   <button class="btn btn-logout"><a href="{% url 'todolist:logout' %}">Logout</a></button>
 
   <!-- <h5>Sesi terakhir login: {{ last_login }}</h5> -->
-
+  </body>
   {% endblock content %}

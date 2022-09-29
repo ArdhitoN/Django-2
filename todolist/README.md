@@ -3,12 +3,12 @@ Tautan aplikasi : https://cata-log.herokuapp.com/todolist/
 
 ## Kegunaan {% csrf_token %} Pada Elemen <form>
 
-Tujuan utama penggunaan {% csrf_token %} ialah untuk mencegah dan memproteksi project dari serangan Cross Site Request Forgery (CSRF). Serangan dilakukan dengan memanfaatkan kredensial dari dari user yang telah terautentikasi dengan mengubah request dari yang mereka lakukan sehingga pada akhirnya korban melakukan hal yang tidak mereka inginkan. Misalnya, korban dapat masuk ke suatu link tanpa keinginannya sendiri ketika melakukan suatu hal di halaman web. Elemen `{% csrf_token %}` akan membuat sebuah token di server ketika proses rendering halaman web dilakukan. Token tersebut berupa kode alfanumerik atau nilai rahasia yang bersifat acak dan bersifat khusus untuk suatu situs tertentu. Setiap request yang masuk akan dicek melalui token tersebut. Oleh karena itu juga, aktivitas POST melalui form hanya akan dapat berjalan jika domain dimana ia berasal dapat dipercaya. 
+Tujuan utama penggunaan {% csrf_token %} ialah untuk mencegah dan memproteksi aplikasi dari serangan Cross Site Request Forgery (CSRF). Serangan dilakukan dengan memanfaatkan kredensial dari dari user yang telah terautentikasi dengan mengubah request yang mereka lakukan sehingga pada akhirnya korban melakukan hal yang tidak mereka inginkan. Misalnya, korban dapat masuk ke suatu link tanpa keinginannya sendiri ketika melakukan sesuatu. Elemen `{% csrf_token %}` akan membuat sebuah token di server ketika proses rendering halaman web dilakukan. Token tersebut berupa kode alfanumerik atau nilai rahasia yang bersifat acak dan bersifat khusus untuk situs. Setiap request yang masuk akan dicek melalui token tersebut. Oleh karena itu juga, aktivitas POST melalui form hanya akan dapat berjalan jika domain dimana ia berasal dapat dipercaya. 
 
 ## Pembuatan Elemen <form> Secara Manual 
 Elemen form dapat dibuat secara manual langsung di html, dimana terdapat pre-defined tag untuk membuatnya. 
 
-Form dapat diinisiasikan elemen dengan opening dan closing tag `<form></form>`, dimana di dalamnya kita dapat mendefinisikan atribut action dan method yang diinginkan. 
+Form dapat diinisiasikan dengan opening dan closing tag `<form></form>`, dimana di dalamnya kita dapat mendefinisikan atribut action dan method yang diinginkan. 
 
 Di dalam tag form tersebut, kita dapat membuat elemen-elemen input dengan tag `<input>` .
 
@@ -17,17 +17,18 @@ Tipe dari tag input tersebut dapat dimodifikasi dengan atribut type. Untuk dapat
 `<input type="submit">` 
 
 ## Alur Data (Submisi - Pop-up Data di Template HTML)
-Pada awalnya, user akan menginput jawaban untuk form dan melakukan submisi. Setelahnya, form tersebut akan mengirimkan hasilnya melalui method POST. Pada views.py, terdapat method create_task yang menerima parameter request, dimana request tersebut memiliki method POST sebagai atributnya. Setelah itu, user yang sedang log in akan dideteksi dengan mengakses atribut user dari request dengan `request.user`. Selain itu, form yang telah diinput oleh user akan dicek validitasnya. Jika form tersebut valid, maka hasil dari form akan disave menuju database. Kemudian jika user kembali ke halaman utama, fungsi views yang sesuai akan kembali dipanggil dan pada akhirnya data yang baru saja dibuat akan tersedia.
+Sebelumnya, form dapat dikalibrasi sedemikian rupa sehingga dapat menampung isi yang sesuai dengan suatu model tertentu yang telah kita definisikan di models.py.Pertama-tama, jika user telah menginput jawaban untuk form dan melakukan submisi, hasilnya akan dikirim melalui HTTP Request dengan method POST. Kemudian, views yang sesuai akan menerima request tersebut. Di sana, hasil input form akan dicek validitasnya. Jika form tersebut valid, maka hasil dari form akan disave menuju database. Kemudian jika user kembali ke halaman utama, fungsi views yang sesuai akan kembali dipanggil dan pada akhirnya data yang baru saja dibuat akan tersedia.
 
 ## Langkah Implementasi
 1. Melakukan inisialiasi aplikasi melalui command `python manage.py startapp todolist` 
 2. Mendaftarkan aplikasi todolist di settings.py
 3. Mendaftarkan path todolist di urls.py yang berada di folder project_django dengan menambahkan `path('todolist/', include('todolist.urls'))` sebagai salah satu elemen baru di urlpatterns.
-4. Menginisiasikan template todolist.html (home aplikasi), register.html(untuk halaman register), login.html(untuk halaman login), create-task.html(halaman untuk menambahkan task) di (folder todolist > folder templates)
-5. Membuat model Task di models.py yang berada di folder todolist dengan atribut user, date, title, dan description dengan tipe data yang sesuai. Pada atribut user, object Task akan menampung ForeignKey User untuk menunjukkan adanya relasi antara keduanya (Eksistensi Task akan bergantung pada User). Jika User didelete, maka Task yang terhubung dengannya akan ikut terdelete dengan atribut on_delete=models.CASCADE
-6. Melakukan migrasi model
-7. Mendefinisikan fungsi show_todolist di views.py yang berada di folder todolist untuk memberikan hasil render todolist.html yang telah dibuat dengan data yang ada di database.
-8. Untuk dapat melihat home serta membuat proses registrasi, login, create-task, dan logout, berjalan dengan baik kita perlu mendefinisikan views yang sesuai untuk masing-masing fitur tersebut.
+4. Membuat forms.py untuk melakukan konfigurasi terhadap object Form.
+5. Menginisiasikan template todolist.html (home aplikasi), register.html(untuk halaman register), login.html(untuk halaman login), create-task.html(halaman untuk menambahkan task) di (folder todolist > folder templates)
+6. Membuat model Task di models.py yang berada di folder todolist dengan atribut user, date, title, dan description dengan tipe data yang sesuai. Pada atribut user, object Task akan menampung ForeignKey User untuk menunjukkan adanya relasi antara keduanya (Eksistensi Task akan bergantung pada User). Jika User didelete, maka Task yang terhubung dengannya akan ikut terdelete dengan atribut on_delete=models.CASCADE
+7. Melakukan migrasi model
+8. Mendefinisikan fungsi show_todolist di views.py yang berada di folder todolist untuk memberikan hasil render todolist.html yang telah dibuat dengan data yang ada di database.
+9. Untuk dapat melihat home serta membuat proses registrasi, login, create-task, dan logout, berjalan dengan baik kita perlu mendefinisikan views yang sesuai untuk masing-masing fitur tersebut.
 
 Untuk merender home aplikasi:
 ```
@@ -103,7 +104,7 @@ def logout_user(request):
 ```
 Dapat dilihat bahwa pada kode di atas, akan dimanfaatkan fungsi logout dari Django. Setelahnya, user akan diredirect menuju halaman login.
 
-9. Melakukan routing sehingga fitur-fitur yang telah dibuat dapat diakses melalui web/internet sebagai berikut : 
+10. Melakukan routing sehingga fitur-fitur yang telah dibuat dapat diakses melalui web/internet sebagai berikut : 
 ```
 from django.urls import path
 
@@ -126,5 +127,5 @@ urlpatterns = [
 ```
 Pada kode di atas, dapat dilihat bahwa pada awalnya kita perlu mengimpor fungsi views untuk fitur-fitur yang ada. Selanjutnya, kita menambahkan path baru untuk menampilkan hasil dari pemrosesan fungsi-fungsi tersebut. 
 
-10. Melakukan 3 mantra git yaitu git add, git commit, dan git push untuk mendeploy aplikasi.
-11. Membuat 2 akun dummy dengan masing-masing diisi 3 dummy-task-data dengan langsung terjun ke halaman web untuk meregestrasikan 2 user baru, melakukan login, dan menambahkan 3 task baru untuk masing-masing user dengan memanfaatkan fitur create-task.
+11. Melakukan 3 mantra git yaitu git add, git commit, dan git push untuk mendeploy aplikasi.
+12. Membuat 2 akun dummy dengan masing-masing diisi 3 dummy-task-data dengan langsung terjun ke halaman web untuk meregestrasikan 2 user baru, melakukan login, dan menambahkan 3 task baru untuk masing-masing user dengan memanfaatkan fitur create-task.

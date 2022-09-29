@@ -128,4 +128,9 @@ urlpatterns = [
 Pada kode di atas, dapat dilihat bahwa pada awalnya kita perlu mengimpor fungsi views untuk fitur-fitur yang ada. Selanjutnya, kita menambahkan path baru untuk menampilkan hasil dari pemrosesan fungsi-fungsi tersebut. 
 
 11. Melakukan 3 mantra git yaitu git add, git commit, dan git push untuk mendeploy aplikasi.
-12. Membuat 2 akun dummy dengan masing-masing diisi 3 dummy-task-data dengan langsung terjun ke halaman web untuk meregestrasikan 2 user baru, melakukan login, dan menambahkan 3 task baru untuk masing-masing user dengan memanfaatkan fitur create-task.
+12. Membuat 2 akun dummy dengan masing-masing diisi 3 dummy-task-data dengan langsung terjun ke halaman web untuk meregestrasikan 2 user baru, melakukan login, dan menambahkan 3 task baru untuk masing-masing user dengan memanfaatkan fitur create-task. 
+Akun yang dibuat :
+
+nama : dummy88 | password: GviMf2WJ4AfD2he
+
+nama : dummy02 | password : h6jwcMWiWuGcw7i

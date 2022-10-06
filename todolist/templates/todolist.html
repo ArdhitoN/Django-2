@@ -1,55 +1,65 @@
-<style>
-  body{
-    background-color:lightgrey;
-  }
-
-  th{
-    padding: 20px;
-  }
-</style>
-
 {% extends 'base.html' %}
 
  {% block content %}
 
   <body>
-    
-  <h1>Your To-Do List</h1>
 
-  <table>
-    <tr>
-      <th>Tanggal Pembuatan Task</th>
-      <th>Judul Task</th>
-      <th>Deskripsi</th>
-      <th>Status</th>
-      <th>Ubah status</th>
-      <th>Hapus</th>
-    </tr>
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Your To-Do List</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="https://cata-log.herokuapp.com/todolist">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'todolist:create_task' %}">Create-Task</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link logout" href="{% url 'todolist:logout' %}">Logout</a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search To-Do</button>
+          </form>
+        </div>
+      </div>
+    </nav>
 
-    {% for todo in todolist_list %}
-    <tr>
-      <th>{{todo.date}}</th>
-      <th>{{todo.title}}</th>
-      <th>{{todo.description}}</th>
-      <th>
-        {% if todo.is_finished %}
-        Selesai
-        {% else %}
-        Belum selesai
-        {% endif %}
-      </th>
-      <th><button><a href="{% url 'todolist:set_status' todo.id %}">Ubah</a></button></th>
-      <th><button><a href="{% url 'todolist:delete_task' todo.id %}">Hapus to-do</a></button></th>
-    </tr>
-    {% endfor %}
-  </table>
+    <br>
 
+
+  {% for todo in todolist_list %}
+  <div class="flex-container justify-content-center align-self-center d-flex h-100""">
+    <div class="card" style="width: 18rem;">
+      <img src="https://tse1.mm.bing.net/th?id=OIP.lR17CZXTy9_eI8zq4t6fUAHaEK&pid=Api&P=0" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{todo.title}}</h5>
+        <p class="card-text">{{todo.description}}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Tanggal pembuatan: {{todo.date}}</li>
+        <li class="list-group-item"> Status:       
+          {% if todo.is_finished %}
+          Selesai
+          {% else %}
+          Belum selesai
+          {% endif %}</li>
+      </ul>
+      <div class="card-body">
+        <a href="{% url 'todolist:set_status' todo.id %}" class="card-link">Ubah</a>
+        <a href="{% url 'todolist:delete_task' todo.id %}" class="card-link">Hapus</a>
+      </div>
+    </div>
+
+  </div>
   <br>
-  <br>
+  {% endfor %}
 
-  <button class="btn btn-addtask"><a href="{% url 'todolist:create_task' %}">Tambah Task Baru</a></button>
-
-  <button class="btn btn-logout"><a href="{% url 'todolist:logout' %}">Logout</a></button>
 
   <!-- <h5>Sesi terakhir login: {{ last_login }}</h5> -->
   </body>

@@ -1,0 +1,23 @@
+{
+  "name": "django-2",
+  "version": "1.0.0",
+  "description": "Platform-Based Programming (CSGE602022) - Organized by the Faculty of Computer Science Universitas Indonesia, Odd Semester 2022/2023",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArdhitoN/Django-2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ArdhitoN/Django-2/issues"
+  },
+  "homepage": "https://github.com/ArdhitoN/Django-2#readme",
+  "dependencies": {
+    "tailwindcss": "^3.1.8"
+  }
+}

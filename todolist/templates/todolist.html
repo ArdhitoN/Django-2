@@ -1,6 +1,72 @@
 {% extends 'base.html' %}
 
+{% block meta %}
+<!-- 
+  <script>
+  $(document).ready(function(){
+      $("button").click(function(){
+          $.get("/todolist/json/", function(data){
+              // Display the returned data in browser
+              for(var i = 0; i < data.length; i++){
+                  createCard(data[i]);
+              }
+          });
+      });
+  });
+
+  </script> -->
+
+{% endblock meta %}
+
+
  {% block content %}
+
+ 
+ <script>
+
+  async function getTodo() {
+    console.log("TES");
+    return fetch("{% url 'todolist:show_json' %}").then((res) => res.json())
+  }
+
+  async function refreshTodolist() {
+        document.getElementById("content").innerHTML = ""
+        const todo = await getTodo()
+        let htmlString = ''
+        todo.forEach((item) => {
+          htmlString += `\n
+          <div class="flex-container justify-content-center align-self-center d-flex h-100""">
+            <div class="card" style="width: 18rem;">
+              <img src="https://tse1.mm.bing.net/th?id=OIP.lR17CZXTy9_eI8zq4t6fUAHaEK&pid=Api&P=0" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">${todo.fields.title}</h5>
+                <p class="card-title">${todo.fields.description}</h5>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Tanggal pembuatan: ${todo.date}</li>
+                <li class="list-group-item"> Status: </li>
+              </ul>
+              </div>
+            </div>
+          </div>
+          ` 
+        })
+        
+        document.getElementById("content").innerHTML = htmlString
+  }
+
+  function addTodo() {
+    console.log("TES")
+    fetch("{% url 'todolist:create_task' %}", {
+          method: "POST",
+          body: new FormData(document.querySelector('#form'))
+      }).then(refreshTodolist)
+    return false
+  }
+
+  document.getElementById("button").onclick = addTodo
+  refreshTodolist()
+  </script>
 
   <body>
 
@@ -58,9 +124,49 @@
 
   </div>
   <br>
+
+
   {% endfor %}
+
+  <div id="content">
+  </div>
+
+
+  <button id="button" type="button" class="btn btn-primary">Load Content</button>
+
+  <!-- Modal triggerer -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Create Task</button>
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Test Modal</button>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Recipient:</label>
+                <input type="text" class="form-control" id="recipient-name">
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label">Message:</label>
+                <textarea class="form-control" id="message-text"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Send message</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
   <!-- <h5>Sesi terakhir login: {{ last_login }}</h5> -->
   </body>
+
   {% endblock content %}

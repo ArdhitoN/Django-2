@@ -6,55 +6,57 @@
 
 {% block content %}  
 
-<nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="https://cata-log.herokuapp.com/todolist">To-Do List</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="https://cata-log.herokuapp.com/todolist">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'todolist:create_task' %}">Create-Task</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link logout" href="{% url 'todolist:logout' %}">Logout</a>
-          </li>
-        </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search To-Do</button>
-        </form>
-      </div>
-    </div>
-  </nav>
-
-<div class="create-task-container justify-content-center align-self-center d-flex h-100">
-
-    <div class = "create-task ">
-
-        <h3>Add your new task here.</h3>
-        <br>
-    
-        <table>
-            <form method="POST">
-                {% csrf_token %}
-                
-                <tr>
-                    <td>{{input_form.as_p}}</td>
-                </tr>
-                <tr>
-                    <td><input type="submit" value="add"></td>
-                </tr>
+<body>
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="https://cata-log.herokuapp.com/todolist">To-Do List</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="https://cata-log.herokuapp.com/todolist">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'todolist:create_task' %}">Create-Task</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link logout" href="{% url 'todolist:logout' %}">Logout</a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search To-Do</button>
             </form>
+          </div>
+        </div>
+      </nav>
     
-        </table>
-    </div>  
-
-
-</div>
+    <div class="create-task-container justify-content-center align-self-center d-flex h-100">
+    
+        <div class = "create-task ">
+    
+            <h3>Add your new task here.</h3>
+            <br>
+    
+            <table>
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <tr>
+                        <td>{{input_form.as_p}}</td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="add"></td>
+                    </tr>
+                </form>
+        
+            </table>
+        </div>  
+    
+    
+    </div>
+</body>
 
 {% endblock content %}

@@ -13,11 +13,13 @@ from django.contrib.auth.decorators import login_required
 
 # For cookies
 import datetime
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 
 from .forms import Input_Form
 
+
+from django.core import serializers
 # Create your views here.
 
 @login_required(login_url='/todolist/login/')
@@ -94,3 +96,10 @@ def set_status(request, id):
     task_object.save()
     return HttpResponseRedirect(reverse("todolist:show_todolist"))
    
+def show_json(request):
+    print("asdasdsa")
+    todolist_objects = Task.objects.filter(user = request.user)
+    return HttpResponse(serializers.serialize("json", todolist_objects), content_type="application/json")
+
+def add_task(request):
+    return create_task(request)

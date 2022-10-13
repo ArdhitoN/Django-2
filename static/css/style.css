@@ -1,9 +1,13 @@
-body{
-    background-color: rgb(222, 222, 222);
+.body-root{
+    background-image: linear-gradient(to right, rgb(94, 87, 87) , white);
 }
 
 .flex-container{
     margin:10px;
+}
+
+.navbar{
+    background-color: rgb(31, 31, 31);
 }
 
 

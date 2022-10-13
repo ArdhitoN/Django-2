@@ -1,3 +1,4 @@
+from urllib import request
 from django.shortcuts import render
 from .models import Task
 
@@ -20,6 +21,9 @@ from .forms import Input_Form
 
 
 from django.core import serializers
+
+from django.http import JsonResponse
+
 # Create your views here.
 
 @login_required(login_url='/todolist/login/')
@@ -97,9 +101,18 @@ def set_status(request, id):
     return HttpResponseRedirect(reverse("todolist:show_todolist"))
    
 def show_json(request):
-    print("asdasdsa")
+    print("asijdoasdjka")
     todolist_objects = Task.objects.filter(user = request.user)
     return HttpResponse(serializers.serialize("json", todolist_objects), content_type="application/json")
 
 def add_task(request):
-    return create_task(request)
+    response = {'input_form' : Input_Form}
+    if request.method == 'POST':
+        user = request.user
+        form = Input_Form(request.POST or None)
+        form.instance.date = datetime.datetime.now()
+        form.instance.user = user
+        if(form.is_valid and request.method == 'POST'):
+            form.save()
+
+    return JsonResponse(request)

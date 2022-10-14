@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 
 # For cookies
 import datetime
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 from django.urls import reverse
 
 from .forms import Input_Form
@@ -105,14 +105,47 @@ def show_json(request):
     todolist_objects = Task.objects.filter(user = request.user)
     return HttpResponse(serializers.serialize("json", todolist_objects), content_type="application/json")
 
+# def add_task(request):
+#     response = {'input_form' : Input_Form}
+#     if request.method == 'POST':
+#         userLogged = request.user
+#         form = Input_Form(request.POST or None)
+#         form.instance.date = datetime.datetime.now()
+#         form.instance.user = userLogged
+#         if(form.is_valid):
+#             dataFields = form.cleaned_data
+#             todo = Task.objects.create(**dataFields, user=userLogged)
+#             response = {
+#                 "pk":todo.pk,
+#                 "fields":{
+#                     "title": todo.title,
+#                     "description":todo.description,
+#                     "date":todo.date,
+#                     "is_finished":todo.is_finished
+#                 }
+#             }
+
+#     return JsonResponse(response)
 def add_task(request):
-    response = {'input_form' : Input_Form}
     if request.method == 'POST':
         user = request.user
-        form = Input_Form(request.POST or None)
-        form.instance.date = datetime.datetime.now()
-        form.instance.user = user
-        if(form.is_valid and request.method == 'POST'):
-            form.save()
+        title = request.POST.get("title")
+        description = request.POST.get("description")
+        date = datetime.datetime.now()
 
-    return JsonResponse(request)
+        new_task = Task(user=user, title=title, description=description, date=date)
+        new_task.save()
+
+        return HttpResponse(b"CREATED", status=201)
+
+    return HttpResponseNotFound()
+
+
+
+def delete_task_async(request, id):
+    if(request.method == 'GET'):
+        task_objects = Task.objects.get(pk=id)
+        task_objects.delete()
+
+        return HttpResponse(b"DELETED", status=201)
+    return HttpResponseNotFound()

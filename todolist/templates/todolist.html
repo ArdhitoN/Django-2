@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block meta %}
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 {% endblock meta %}
 
 
@@ -15,7 +15,7 @@
   }
 
   async function refreshTodolist() {
-        
+      
         const todo = await getTodo();
         console.log("TESSSSSSSS" + " " + todo + " aa");
         let htmlString = ''
@@ -30,8 +30,11 @@
               </div>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">Tanggal pembuatan: ${item.fields.date}</li>
-                <li class="list-group-item"> Status: ${item.fields.is_finished}</li>
+                <li class="list-group-item"> Status: ${item.fields.is_finished ? "Finished" : "Unfinished"} </li>
               </ul>
+              <div class="card-body">
+                <a href="set-status/${item.pk}" class="card-link">Ubah</a>
+                <button type="button" id="button-delete" class="btn btn-primary" onclick="deleteTodo(${item.pk})">Delete</button>
               </div>
             </div>
           </div>
@@ -39,17 +42,38 @@
         })
         document.getElementById("content").innerHTML = htmlString
   }
+
   function addTodo() {
     console.log("TES")
-    fetch("{% url 'todolist:create_task' %}", {
+    fetch("{% url 'todolist:add_task' %}", {
           method: "POST",
           body: new FormData(document.querySelector('#form'))
       }).then(refreshTodolist)
     return false
   }
-  refreshTodolist()
-  // document.getElementById("button").onclick = addTodo
+
+  function deleteTodo(todoPK) {
+    console.log("TESzzz")
+    fetch(`/todolist/delete/${todoPK}`, {
+      method: "GET",
+      }
+      ).then(refreshTodolist)
+    return false
+  }
+
+
+  refreshTodolist()  
+  // document.getElementById("addbtn").onclick = addTodo
+
+  // function showModal(){
+  //   document.getElementById("#button").show(document.getElementById("#staticBackdrop"));
   
+  // }
+  // $('#btn').on('click', function(){
+  //   $('#staticBackdrop').modal('show');
+  // });
+
+
   </script>
 
   <body>
@@ -82,40 +106,45 @@
 
     <br>
 
+    <div id="content">
+    </div>
 
-  <div id="content">
-  </div>
+<!-- Button trigger modal -->
+    <div class="text-center">
+      <button type="button" id="button-modal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        Add Task
+      </button>
+    </div>
 
-  <!-- Modal triggerer -->
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Add Task</button>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
+<!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" role="dialog" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Add your new task </h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
-            <form>
-              <div class="mb-3">
-                <label for="recipient-name" class="col-form-label">Recipient:</label>
-                <input type="text" class="form-control" id="recipient-name">
-              </div>
-              <div class="mb-3">
-                <label for="message-text" class="col-form-label">Message:</label>
-                <textarea class="form-control" id="message-text"></textarea>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Send message</button>
-          </div>
+          <form id="form" method="POST" onsubmit="return false;">
+            <div class="modal-body">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="title" class="col-form-label">Title:</label>
+                    <input type="text" class="form-control" id="title" name="title">
+                </div>
+                <div class="form-group">
+                    <label for="description" class="col-form-label">Description:</label>
+                    <input type="text" class="form-control" id="description" name="description">
+                </div>
+      
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" id="addbtn" class="btn btn-primary" onclick="addTodo()">Add</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-
 
   <!-- <h5>Sesi terakhir login: {{ last_login }}</h5> -->
   </body>

@@ -9,6 +9,7 @@ from .views import set_status
 from .views import delete_task
 from .views import show_json
 from .views import add_task
+from .views import delete_task_async
 
 
 app_name = 'todolist'
@@ -23,4 +24,5 @@ urlpatterns = [
     path('delete-task/<int:id>', delete_task, name='delete_task'),
     path('json/', show_json, name='show_json'),
     path('add/', add_task, name='add_task'),
+    path('delete/<int:id>', delete_task_async, name='delete_task_async'),
 ]

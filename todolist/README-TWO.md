@@ -66,7 +66,7 @@ async function refreshTodolist() {
           ` 
         })
         document.getElementById("content").innerHTML = htmlString
-  }
+  
 ```
 
 - Untuk menghapus suatu todo secara asinkronus, fungsi berikut akan dipanggil:

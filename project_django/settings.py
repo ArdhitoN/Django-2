@@ -28,8 +28,9 @@ SECRET_KEY = 'django-insecure-3@5wx%(^*zl68l(o$^m-3%cvjv0g&mom1ra=oj5f048_al57s7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ["*"]
-ALLOWED_HOSTS = [f'{HEROKU_APP_NAME}.up.railway.app']
+ALLOWED_HOSTS = ["*"]
+APP_NAME = 'cata-log'
+CSRF_TRUSTED_ORIGINS = [f'https://{APP_NAME}.up.railway.app']
 # Application definition
 
 INSTALLED_APPS = [
